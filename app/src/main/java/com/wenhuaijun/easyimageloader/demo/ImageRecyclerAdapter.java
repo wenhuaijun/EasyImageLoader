@@ -1,6 +1,7 @@
 package com.wenhuaijun.easyimageloader.demo;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.wenhuaijun.easyimageloader.R;
@@ -17,14 +18,21 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHold
 
     @Override
     public ImageItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        Log.i("heheda","onCreateViewHolder");
         return new ImageItemViewHolder(parent);
     }
 
     @Override
     public void onBindViewHolder(ImageItemViewHolder holder, int position) {
-        holder.imageView.setImageResource(R.drawable.ic_loading);
-        if(!isScrolling){
+        //第一次onBindViewHolder的时候，正常执行所有步骤，不管滑动
+        Log.i("heheda", "onBindViewHolder----" + position);
+     /*   holder.imageView.setImageResource(R.drawable.ic_loading);
+        holder.setData(data[position]);*/
+        if(isScrolling){
+            Log.i("heheda", "isScrolling");
+            holder.imageView.setImageResource(R.drawable.ic_loading);
+        }else{
+            Log.i("heheda", "notScrolling");
             holder.setData(data[position]);
         }
     }

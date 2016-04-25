@@ -14,6 +14,8 @@ import com.wenhuaijun.easyimageloader.imageLoader.ImageLoader;
  * Created by Administrator on 2016/4/24 0024.
  */
 public class ImageItemViewHolder extends RecyclerView.ViewHolder{
+    public boolean isLoadding =true;
+    public boolean isInit =true;
     public ImageView imageView;
     private ImageLoader imageLoader;
     public ImageItemViewHolder(ViewGroup parent) {

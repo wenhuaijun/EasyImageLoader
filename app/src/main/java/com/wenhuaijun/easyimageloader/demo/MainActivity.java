@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView =(RecyclerView)findViewById(R.id.recyclerView);
-       // recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+       // recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);

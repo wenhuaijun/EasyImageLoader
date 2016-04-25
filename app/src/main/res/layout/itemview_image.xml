@@ -3,10 +3,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="240dp">
+    android:layout_height="420dp">
     <ImageView
         android:id="@+id/itemview_img"
         android:layout_width="match_parent"
         android:scaleType="centerCrop"
-        android:layout_height="240dp" />
+        android:layout_height="420dp" />
 </LinearLayout>
