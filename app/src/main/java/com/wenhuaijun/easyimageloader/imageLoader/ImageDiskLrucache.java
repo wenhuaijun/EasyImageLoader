@@ -59,8 +59,13 @@ public class ImageDiskLrucache {
         String key = MD5Utils.hashKeyFromUrl(url);
         DiskLruCache.Snapshot snapshot =mDiskLruCache.get(key);
         if(snapshot!=null){
-            //先不做图片按需缩放处理,直接获取bitmap
-            bitmap = BitmapFactory.decodeStream(snapshot.getInputStream(DISK_CACHE_INDEX));
+            if(reqWidth<=0||reqHeight<=0){
+                //不压缩图片
+                bitmap = BitmapFactory.decodeStream(snapshot.getInputStream(DISK_CACHE_INDEX));
+            }else{
+                //按需求分辨率压缩图片
+                bitmap =BitmapUtils.getSmallBitmap(snapshot.getInputStream(DISK_CACHE_INDEX),reqWidth,reqHeight);
+            }
         }
         return bitmap;
     }

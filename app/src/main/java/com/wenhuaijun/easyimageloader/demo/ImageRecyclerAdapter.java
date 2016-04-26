@@ -28,7 +28,8 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHold
         Log.i("heheda", "onBindViewHolder----" + position);
      /*   holder.imageView.setImageResource(R.drawable.ic_loading);
         holder.setData(data[position]);*/
-        if(isScrolling){
+        holder.setLayoutParams(data[position]);
+        if (isScrolling) {
             Log.i("heheda", "isScrolling");
             holder.imageView.setImageResource(R.drawable.ic_loading);
         }else{
