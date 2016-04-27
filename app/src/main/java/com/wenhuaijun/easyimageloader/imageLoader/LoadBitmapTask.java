@@ -17,7 +17,7 @@ public class LoadBitmapTask implements Runnable{
     public static final int MESSAGE_POST_RESULT = 1;
     private boolean mIsDiskLruCacheCreated = false;
     private Context mContext;
-    private ImageLrucache imageLrucache;
+   // private ImageLrucache imageLrucache;
     private ImageDiskLrucache imageDiskLrucache;
     private String uri;
     private int reqWidth;
@@ -32,14 +32,14 @@ public class LoadBitmapTask implements Runnable{
         this.reqWidth =reqWidth;
         this.imageView =imageview;
         mContext =context.getApplicationContext();
-        imageLrucache = new ImageLrucache();
+     //   imageLrucache = new ImageLrucache();
         imageDiskLrucache =new ImageDiskLrucache(mContext);
     }
 
     @Override
     public void run() {
         //从本地或者网络获取bitmap
-        Bitmap bitmap =loadBitmap(uri,reqWidth,reqHeight);
+        Bitmap bitmap =loadBitmap(uri, reqWidth, reqHeight);
         if(bitmap!=null){
             TaskResult loaderResult = new TaskResult(imageView,uri,bitmap);
             mMainHandler.obtainMessage(MESSAGE_POST_RESULT,loaderResult).sendToTarget();
@@ -48,23 +48,26 @@ public class LoadBitmapTask implements Runnable{
 
     private Bitmap loadBitmap(String uri,int reqWidth,int reqHeight){
         //从内存中获取bitmap缓存
-        Bitmap bitmap = imageLrucache.loadBitmapFromMemCache(uri);
+        Bitmap bitmap = ImageLoader.imageLrucache.loadBitmapFromMemCache(uri);
         if(bitmap!=null){
-            Log.i(TAG, "loadBitmapFromMemCache");
+            JUtils.Log("从内存中获取到了bitmap_2");
             return bitmap;
         }
         try {
             //从本地缓存中获取bitmap
             bitmap = imageDiskLrucache.loadBitmapFromDiskCache(uri,reqWidth,reqHeight);
             if(bitmap!=null){
-                Log.i(TAG,"loadBitmapFromDiskCache");
+                JUtils.Log("从本地缓存中获取到了bitmap");
                 //添加到内存缓存中
-                imageLrucache.addBitmapToMemoryCache(MD5Utils.hashKeyFromUrl(uri), bitmap);
+                ImageLoader.imageLrucache.addBitmapToMemoryCache(MD5Utils.hashKeyFromUrl(uri), bitmap);
                 return  bitmap;
             }else{
                 //从网络下载bitmap到本地缓存，并从本地缓存中获取bitmap
                 bitmap =loadBitmapFromHttp(uri,reqWidth,reqHeight);
-                Log.i(TAG, "loadBitmapFromHttp");
+                if(bitmap!=null){
+                    JUtils.Log("从网络下载并保存到本地并从中读取bitmap成功");
+                }
+
             }
 
         } catch (IOException e) {
@@ -73,7 +76,7 @@ public class LoadBitmapTask implements Runnable{
         if(bitmap==null&&!mIsDiskLruCacheCreated){
             //如果sd卡已满，无法使用本地缓存，则通过网络下载bitmap，一般不会调用这一步
             bitmap =NetRequest.downloadBitmapFromUrl(uri);
-            Log.i(TAG, "downloadBitmapFromUrl");
+            Log.i(TAG, "sd卡满了，直接从网络获取");
         }
         return bitmap;
     }

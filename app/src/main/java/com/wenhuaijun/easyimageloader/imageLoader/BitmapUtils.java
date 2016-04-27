@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -69,19 +70,19 @@ public class BitmapUtils {
      * @param reqHeight 需求高度
      * @return bitmap
      */
-    public static Bitmap getSmallBitmap(InputStream inputStream,int reqWidth,int reqHeight){
+    public static Bitmap getSmallBitmap(FileDescriptor fileDescriptor,int reqWidth,int reqHeight){
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds =true;
-        BitmapFactory.decodeStream(inputStream,null,options);
+        BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options);
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
         options.inJustDecodeBounds = false;
         //不需要缩放
         if(options.inSampleSize<=1){
-            return BitmapFactory.decodeStream(inputStream);
+            return BitmapFactory.decodeFileDescriptor(fileDescriptor);
         }
         //inSampleSize！=1进行缩放
-        return BitmapFactory.decodeStream(inputStream, null, options);
+        return BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options);
     }
 
     //

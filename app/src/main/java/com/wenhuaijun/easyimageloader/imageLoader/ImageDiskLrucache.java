@@ -9,6 +9,7 @@ import android.os.StatFs;
 import android.util.Log;
 import com.jakewharton.disklrucache.DiskLruCache;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -59,12 +60,14 @@ public class ImageDiskLrucache {
         String key = MD5Utils.hashKeyFromUrl(url);
         DiskLruCache.Snapshot snapshot =mDiskLruCache.get(key);
         if(snapshot!=null){
+            FileInputStream fileInputStream =(FileInputStream)snapshot.getInputStream(DISK_CACHE_INDEX);
             if(reqWidth<=0||reqHeight<=0){
                 //不压缩图片
-                bitmap = BitmapFactory.decodeStream(snapshot.getInputStream(DISK_CACHE_INDEX));
+
+                bitmap = BitmapFactory.decodeFileDescriptor(fileInputStream.getFD());
             }else{
                 //按需求分辨率压缩图片
-                bitmap =BitmapUtils.getSmallBitmap(snapshot.getInputStream(DISK_CACHE_INDEX),reqWidth,reqHeight);
+                bitmap =BitmapUtils.getSmallBitmap(fileInputStream.getFD(),reqWidth,reqHeight);
             }
         }
         return bitmap;
@@ -81,9 +84,10 @@ public class ImageDiskLrucache {
             //将从网络下载并写入输出流中
             if(NetRequest.downloadUrlToStream(urlString,outputStream)){
                 //提交数据，并是释放连接
-                Log.i(TAG, "addBitmapToDiskCache");
+                JUtils.Log("从网络下载图片到本地缓存中成功");
                 editor.commit();
             }else{
+                JUtils.Log("从网络下载图片到本地缓存中失败");
                 //释放连接
                 editor.abort();
             }

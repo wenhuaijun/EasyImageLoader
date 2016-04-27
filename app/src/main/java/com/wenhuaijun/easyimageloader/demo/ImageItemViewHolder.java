@@ -28,8 +28,8 @@ public class ImageItemViewHolder extends RecyclerView.ViewHolder{
         screenWidth =JUtils.getScreenWidth();
     }
     public void setData(NetImage netImage){
-        //设置宽为120px像素，高为134像素去压缩图片分辨率
-        imageLoader.bindBitmap(netImage.getPic_url_noredirect(), imageView, 120, 134);
+        //设置宽为80px像素，高为80像素去压缩图片分辨率
+        imageLoader.bindBitmap(netImage.getThumbUrl(), imageView, 80, 80);
     }
     public void setLayoutParams(NetImage netImage){
         //图片根据频幕宽度等比缩放

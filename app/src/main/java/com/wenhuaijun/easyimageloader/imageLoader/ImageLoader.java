@@ -18,7 +18,7 @@ public class ImageLoader {
     private static final String TAG="TAG";
     private static final int TAG_KEY_URI = R.id.image;
     private Context mContext;
-    private ImageLrucache imageLrucache;
+    public static  ImageLrucache imageLrucache;
     //创建一个静态的线程池对象
     public static final Executor THREAD_POOL_EXECUTOR =ImageThreadPoolExecutor.getInstance();
     //创建一个更新ImageView的UI的Handler
@@ -62,6 +62,7 @@ public class ImageLoader {
         //从内存缓存中获取bitmap
         Bitmap bitmap = imageLrucache.loadBitmapFromMemCache(uri);
         if(bitmap!=null){
+            JUtils.Log("从内存中获取到了bitmap_1");
             imageView.setImageBitmap(bitmap);
             return;
         }
