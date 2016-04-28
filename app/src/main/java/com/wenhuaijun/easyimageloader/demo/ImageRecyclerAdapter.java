@@ -24,16 +24,11 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHold
 
     @Override
     public void onBindViewHolder(ImageItemViewHolder holder, int position) {
-        //第一次onBindViewHolder的时候，正常执行所有步骤，不管滑动
         Log.i("heheda", "onBindViewHolder----" + position);
-     /*   holder.imageView.setImageResource(R.drawable.ic_loading);
-        holder.setData(data[position]);*/
         holder.setLayoutParams(data[position]);
         if (isScrolling) {
-            Log.i("heheda", "isScrolling");
             holder.imageView.setImageResource(R.drawable.ic_loading);
         }else{
-            Log.i("heheda", "notScrolling");
             holder.setData(data[position]);
         }
     }

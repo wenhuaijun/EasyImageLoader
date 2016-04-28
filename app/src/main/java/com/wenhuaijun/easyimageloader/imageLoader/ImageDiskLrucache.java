@@ -63,7 +63,6 @@ public class ImageDiskLrucache {
             FileInputStream fileInputStream =(FileInputStream)snapshot.getInputStream(DISK_CACHE_INDEX);
             if(reqWidth<=0||reqHeight<=0){
                 //不压缩图片
-
                 bitmap = BitmapFactory.decodeFileDescriptor(fileInputStream.getFD());
             }else{
                 //按需求分辨率压缩图片

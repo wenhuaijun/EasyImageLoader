@@ -18,7 +18,8 @@ public class ImageLoader {
     private static final String TAG="TAG";
     private static final int TAG_KEY_URI = R.id.image;
     private Context mContext;
-    public static  ImageLrucache imageLrucache;
+    private static ImageLrucache imageLrucache;
+    private static ImageDiskLrucache imageDiskLrucache;
     //创建一个静态的线程池对象
     public static final Executor THREAD_POOL_EXECUTOR =ImageThreadPoolExecutor.getInstance();
     //创建一个更新ImageView的UI的Handler
@@ -44,6 +45,7 @@ public class ImageLoader {
     private ImageLoader (Context context){
         mContext =context.getApplicationContext();
         imageLrucache = new ImageLrucache();
+        imageDiskLrucache = new ImageDiskLrucache(context);
     }
     //这或许是最简单的建造者模式
     public static ImageLoader build(Context context){
@@ -69,5 +71,19 @@ public class ImageLoader {
         LoadBitmapTask loadBitmapTask =new LoadBitmapTask(mContext,mMainHandler,imageView,uri,reqWidth,reqHeight);
        //使用线程池去执行Runnable对象
         THREAD_POOL_EXECUTOR.execute(loadBitmapTask);
+    }
+    //返回内存缓存类
+    public static  ImageLrucache getImageLrucache(){
+        if(imageLrucache==null){
+            imageLrucache = new ImageLrucache();
+        }
+        return imageLrucache;
+    }
+    //返回本地缓存类
+    public static ImageDiskLrucache getImageDiskLrucache(Context context){
+        if(imageDiskLrucache==null){
+            imageDiskLrucache = new ImageDiskLrucache(context);
+        }
+        return imageDiskLrucache;
     }
 }

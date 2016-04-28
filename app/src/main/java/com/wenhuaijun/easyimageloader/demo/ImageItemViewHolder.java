@@ -21,19 +21,26 @@ public class ImageItemViewHolder extends RecyclerView.ViewHolder{
     public ImageView imageView;
     private ImageLoader imageLoader;
     private float screenWidth;
+    private int height;
+    private float width;
+    private ViewGroup.LayoutParams layoutParams;
     public ImageItemViewHolder(ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.itemview_image,parent,false));
         imageView =(ImageView)itemView.findViewById(R.id.itemview_img);
         imageLoader = ImageLoader.build(parent.getContext());
         screenWidth =JUtils.getScreenWidth();
+        layoutParams =imageView.getLayoutParams();
     }
     public void setData(NetImage netImage){
-        //设置宽为80px像素，高为80像素去压缩图片分辨率
-        imageLoader.bindBitmap(netImage.getThumbUrl(), imageView, 80, 80);
+        //根据imageView所需实际像素的宽和高去
+        imageLoader.bindBitmap(netImage.getThumbUrl(), imageView, (int)width, height);
     }
     public void setLayoutParams(NetImage netImage){
         //图片根据频幕宽度等比缩放
-        int height = (int)(netImage.getThumb_height()*(screenWidth/netImage.getThumb_width()));
-        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,height));
+        width =screenWidth;
+        height = (int)(netImage.getThumb_height()*(width/netImage.getThumb_width()));
+        layoutParams.width =(int)width;
+        layoutParams.height =height;
+        imageView.setLayoutParams(layoutParams);
     }
 }
