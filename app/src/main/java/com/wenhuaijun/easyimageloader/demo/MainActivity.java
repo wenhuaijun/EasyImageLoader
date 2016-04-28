@@ -17,7 +17,7 @@ import java.net.URLEncoder;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ImageRecyclerAdapter recyclerAdapter;
-    private String searchWord="萌妹子";
+    private String searchWord="美女";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
