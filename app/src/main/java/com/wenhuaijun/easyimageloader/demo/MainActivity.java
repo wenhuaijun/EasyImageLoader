@@ -2,6 +2,7 @@ package com.wenhuaijun.easyimageloader.demo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchView;
     private ImageRecyclerAdapter recyclerAdapter;
     private String searchWord="美女";
+    private int layoutSysle =Constants.StagedGridLayoutStyle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +47,26 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.action_search){
-            searchView.setVisibility(View.VISIBLE);
-            searchView.onActionViewExpanded();
-            searchView.requestFocus();
-            return true;
+        switch(item.getItemId()){
+            case R.id.action_search:
+                searchView.setVisibility(View.VISIBLE);
+                searchView.onActionViewExpanded();
+                searchView.requestFocus();
+                break;
+            case R.id.action_linearLayout:
+                layoutSysle =Constants.LinearLayoutStyle;
+                recyclerAdapter.setLayoutManagerType(layoutSysle);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                break;
+            case R.id.action_stageGridLayout:
+                layoutSysle =Constants.StagedGridLayoutStyle;
+                recyclerAdapter.setLayoutManagerType(layoutSysle);
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+        return  true;
     }
 
     private void initSearchView() {
@@ -62,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 searchPicture(query);
                 searchView.setVisibility(View.GONE);
                 recyclerView.requestFocus();
+                toolbar.setTitle(query);
                 return false;
             }
 
@@ -88,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(NetImageResult response) {
 //                Log.i("TAG","size: +"+response.getItems().length);
-                recyclerAdapter = new ImageRecyclerAdapter(response.getItems());
+                recyclerAdapter = new ImageRecyclerAdapter(response.getItems(),layoutSysle);
                 recyclerView.setAdapter(recyclerAdapter);
 
             }
@@ -96,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(Exception exception, String errorInfo) {
                 Toast.makeText(MainActivity.this,"net error",Toast.LENGTH_SHORT).show();
-                recyclerAdapter = new ImageRecyclerAdapter(null);
+                recyclerAdapter = new ImageRecyclerAdapter(null,layoutSysle);
             }
         });
     }

@@ -7,4 +7,14 @@
         android:orderInCategory="100"
         android:title="search"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_linearLayout"
+        android:orderInCategory="100"
+        android:title="垂直线性布局"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_stageGridLayout"
+        android:orderInCategory="100"
+        android:title="错位式布局"
+        app:showAsAction="never" />
 </menu>

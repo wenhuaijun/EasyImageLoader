@@ -72,7 +72,13 @@ public class ImageDiskLrucache {
         }
         return bitmap;
     }
-    public void addBitmapToDiskCache(String urlString,int reqWidth,int reqHeight) throws IOException {
+
+    /**
+     * 下载图片放入本地缓存
+     * @param urlString 下载图片的链接
+     * @throws IOException
+     */
+    public void downloadImageToDiskCache(String urlString) throws IOException {
         if(mDiskLruCache == null){
             return ;
         }

@@ -12,8 +12,10 @@ import com.wenhuaijun.easyimageloader.R;
 public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHolder>{
     private NetImage[] data;
     private boolean isScrolling =false;
-    public ImageRecyclerAdapter(NetImage[] data) {
+    private int layoutManagerType =Constants.StagedGridLayoutStyle;
+    public ImageRecyclerAdapter(NetImage[] data,int style) {
         this.data = data;
+        this.layoutManagerType =style;
     }
 
     @Override
@@ -25,7 +27,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHold
     @Override
     public void onBindViewHolder(ImageItemViewHolder holder, int position) {
         Log.i("heheda", "onBindViewHolder----" + position);
-        holder.setLayoutParams(data[position]);
+        holder.setLayoutParams(data[position],layoutManagerType);
         //如果RecyclerView设置了滑动监听则使用下列注释代码，优化图片加载性能，解决卡顿
         /*if(getItemCount()!=0){
             if (isScrolling) {
@@ -37,7 +39,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHold
 
         //RecyclerView未设置滑动监听
         holder.imageView.setImageResource(R.drawable.ic_loading);
-        holder.setData(data[position]);
+        holder.setData(data[position],layoutManagerType);
     }
 
     @Override
@@ -56,6 +58,14 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHold
         notifyDataSetChanged();
     }
 
+    public int getLayoutManagerType() {
+        return layoutManagerType;
+    }
+
+    public void setLayoutManagerType(int layoutManagerType) {
+        this.layoutManagerType = layoutManagerType;
+    }
+
     public void setData(NetImage[] data) {
         this.data = data;
     }
@@ -63,6 +73,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHold
     public boolean isScrolling() {
         return isScrolling;
     }
+
 
     public void setIsScrolling(boolean isScrolling) {
         this.isScrolling = isScrolling;

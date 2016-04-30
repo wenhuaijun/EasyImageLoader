@@ -82,7 +82,7 @@ public class LoadBitmapTask implements Runnable{
     //从网络获取bitmap，并放入本地缓存中
     private Bitmap loadBitmapFromHttp(String url,int reqWidth,int reqHeight) throws IOException {
         //通过url从网络获取图片的字节流保存到本地缓存
-        ImageLoader.getImageDiskLrucache(mContext).addBitmapToDiskCache(url, reqWidth, reqHeight);
+        ImageLoader.getImageDiskLrucache(mContext).downloadImageToDiskCache(url);
         //从网络保存到本地缓存中后，直接从本地缓存中获取bitmap;
         return ImageLoader.getImageDiskLrucache(mContext).loadBitmapFromDiskCache(url, reqWidth, reqHeight);
     }

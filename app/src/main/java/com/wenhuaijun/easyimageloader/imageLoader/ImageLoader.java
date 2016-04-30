@@ -58,8 +58,6 @@ public class ImageLoader {
     }
     //外层调用的方法，依次从内存、本地、网络中去获取缓存
     public void bindBitmap(final String uri,final ImageView imageView,final int reqWidth,final int reqHeight){
-        //imageView的数据清空
-       // imageView.setImageResource(R.drawable.ic_loading);
         //防止加载图片的时候数据错乱
         imageView.setTag(TAG_KEY_URI, uri);
         //从内存缓存中获取bitmap
