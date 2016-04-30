@@ -4,7 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by Administrator on 2016/4/23 0023.
+ * MD5加密文件获取到唯一的String，作为该文件的标识符，一般用于给文件命名
+ * Created by wenhuaijun on 2016/4/23 0023.
  */
 public class MD5Utils {
     //将url通过MD5转化为唯一的字符串，用于标识

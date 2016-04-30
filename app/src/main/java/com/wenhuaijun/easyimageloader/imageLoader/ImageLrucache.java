@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.LruCache;
 
-/**
- * Created by Administrator on 2016/4/23 0023.
+/**图片内存缓存类
+ * Created by wenhuaijun on 2016/4/23 0023.
  */
 public class ImageLrucache extends LruCache<String,Bitmap>{
     public static final String TAG ="TAG";

@@ -7,8 +7,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Created by Administrator on 2016/4/23 0023.
+/**自定义的线程池，用于执行Runnable任务
+ * Created by wenhuaijun on 2016/4/23 0023.
  */
 public class ImageThreadPoolExecutor extends  ThreadPoolExecutor{
     private static ImageThreadPoolExecutor imageThreadPoolExecutor;

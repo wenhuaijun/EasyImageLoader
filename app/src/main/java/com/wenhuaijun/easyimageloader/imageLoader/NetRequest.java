@@ -3,6 +3,8 @@ package com.wenhuaijun.easyimageloader.imageLoader;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -23,11 +25,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2016/4/24 0024.
+ * 简单封装的网络请求库，支持GET、POST、自动回调回UI线程、自动解析Json数据成javaBean对象
+ * Created by wenhuaijun on 2016/4/24 0024.
  */
 public class NetRequest {
-
-    public static void getRequest(final Activity activity, final String httpUrl, final CallBack callBack){
+public static Handler handler = new Handler(Looper.getMainLooper());
+public static void getRequest(final String httpUrl, final CallBack callBack){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -42,7 +45,7 @@ public class NetRequest {
                     //httpUrlConnection.setDoOutput(true);
                     InputStream inputStream =httpUrlConnection.getInputStream();
                     final String response =getStringFromInputStream(inputStream);
-                    activity.runOnUiThread(new Runnable() {
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
                             callBack.onSuccess(response);
@@ -50,7 +53,7 @@ public class NetRequest {
                     });
                 } catch (final MalformedURLException e) {
                     e.printStackTrace();
-                    activity.runOnUiThread(new Runnable() {
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
                             callBack.onError(e, "error");
@@ -59,7 +62,7 @@ public class NetRequest {
 
                 } catch (final IOException e) {
                     e.printStackTrace();
-                    activity.runOnUiThread(new Runnable() {
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
                             callBack.onError(e, "error");
@@ -75,8 +78,8 @@ public class NetRequest {
         }).start();
 
     }
-    public static <T> void getRequest(final Activity activity, final String httpUrl, final Class<T> type,final BeanCallback<T> callBack){
-        getRequest(activity, httpUrl, new CallBack() {
+    public static <T> void getRequest( final String httpUrl, final Class<T> type,final BeanCallback<T> callBack){
+        getRequest( httpUrl, new CallBack() {
             @Override
             public void onSuccess(String response) {
                 Log.i("TAG",response);
@@ -89,8 +92,8 @@ public class NetRequest {
             }
         });
     }
-    public static <T> void postRequest(final Activity activity, final String httpUrl, final HashMap<String, String> params, final Class<T> type,final BeanCallback<T> callBack){
-        postRequest(activity, httpUrl, params, new CallBack() {
+    public static <T> void postRequest( final String httpUrl, final HashMap<String, String> params, final Class<T> type,final BeanCallback<T> callBack){
+        postRequest(httpUrl, params, new CallBack() {
             @Override
             public void onSuccess(String response) {
                 callBack.onSuccess(new Gson().fromJson(response,type));
@@ -103,7 +106,7 @@ public class NetRequest {
         });
 
     }
-    public  static void postRequest(final Activity activity, final String httpUrl, final HashMap<String, String> params, final CallBack callBack){
+    public  static void postRequest( final String httpUrl, final HashMap<String, String> params, final CallBack callBack){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -128,7 +131,7 @@ public class NetRequest {
                         Log.i("response","postRequest success");
                     }
                     final String response=getStringFromInputStream(httpUrlConnection.getInputStream());
-                    activity.runOnUiThread(new Runnable() {
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
                             callBack.onSuccess(response);
@@ -139,7 +142,7 @@ public class NetRequest {
 
                 } catch (final MalformedURLException e) {
                     e.printStackTrace();
-                    activity.runOnUiThread(new Runnable() {
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
                             callBack.onError(e, "error");
@@ -148,7 +151,7 @@ public class NetRequest {
 
                 } catch (final IOException e) {
                     e.printStackTrace();
-                    activity.runOnUiThread(new Runnable() {
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
                             callBack.onError(e, "error");

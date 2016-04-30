@@ -12,6 +12,7 @@ import com.wenhuaijun.easyimageloader.R;
 import java.util.concurrent.Executor;
 
 /**
+ * 供外层使用的图片加载类，通过它实现图片加载
  * Created by Wenhuaijun on 2016/4/22 0022.
  */
 public class ImageLoader {

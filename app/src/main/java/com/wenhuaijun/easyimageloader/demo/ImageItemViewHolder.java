@@ -13,11 +13,9 @@ import com.wenhuaijun.easyimageloader.imageLoader.JUtils;
 
 
 /**
- * Created by Administrator on 2016/4/24 0024.
+ * Created by wenhuaijun on 2016/4/24 0024.
  */
 public class ImageItemViewHolder extends RecyclerView.ViewHolder{
-    public boolean isLoadding =true;
-    public boolean isInit =true;
     public ImageView imageView;
     private ImageLoader imageLoader;
     private float screenWidth;
@@ -31,13 +29,15 @@ public class ImageItemViewHolder extends RecyclerView.ViewHolder{
         screenWidth =JUtils.getScreenWidth();
         layoutParams =imageView.getLayoutParams();
     }
+    //绑定数据
     public void setData(NetImage netImage){
         //根据imageView所需实际像素的宽和高去
-        imageLoader.bindBitmap(netImage.getThumbUrl(), imageView, (int)width, height);
+        imageLoader.bindBitmap(netImage.getThumbUrl(), imageView, (int)width/2, height);
     }
+    //这个会先执行
     public void setLayoutParams(NetImage netImage){
         //图片根据频幕宽度等比缩放
-        width =screenWidth;
+        width =screenWidth/2;
         height = (int)(netImage.getThumb_height()*(width/netImage.getThumb_width()));
         layoutParams.width =(int)width;
         layoutParams.height =height;

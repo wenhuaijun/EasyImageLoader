@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 /**
- * Created by Administrator on 2016/4/24 0024.
+ * 启动的LoadBitmapTask后封装的结果。用Message传输
+ * Created by wenhuaijun on 2016/4/24 0024.
  */
 public class TaskResult {
         public ImageView imageView;

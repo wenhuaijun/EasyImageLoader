@@ -5,7 +5,7 @@ import android.app.Application;
 import com.wenhuaijun.easyimageloader.imageLoader.JUtils;
 
 /**
- * Created by Administrator on 2016/4/26 0026.
+ * Created by wenhuaijun on 2016/4/26 0026.
  */
 public class APP extends Application{
   //  private int screenWidth;

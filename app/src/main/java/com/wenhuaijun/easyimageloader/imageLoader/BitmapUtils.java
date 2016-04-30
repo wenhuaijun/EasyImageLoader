@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
+ * 处理图片的相关类，压缩质量、缩放图片
  * Created by Wenhuaijun on 2016/4/24 0024.
  */
 public class BitmapUtils {

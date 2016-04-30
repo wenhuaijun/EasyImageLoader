@@ -38,6 +38,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+/**
+ * 一些小工具集合，包括获取屏幕宽高等
+ */
 public class JUtils {
     public static String TAG;
     public static boolean DEBUG = false;

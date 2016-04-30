@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Created by Administrator on 2016/4/23 0023.
+ * 图片本地缓存类
+ * Created by wenhuaijun on 2016/4/23 0023.
  */
 public class ImageDiskLrucache {
     public static final String TAG ="TAG";
