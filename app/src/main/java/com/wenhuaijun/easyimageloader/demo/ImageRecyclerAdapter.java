@@ -51,6 +51,10 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHold
     public NetImage[] getData() {
         return data;
     }
+    public void clear(){
+        data =null;
+        notifyDataSetChanged();
+    }
 
     public void setData(NetImage[] data) {
         this.data = data;
