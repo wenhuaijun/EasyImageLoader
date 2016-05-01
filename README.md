@@ -5,7 +5,7 @@
 
 ##示例
 ![EasyImageLoaderSample.gif](EasyImageLoaderSample.gif)
-##EasyRecyclerView的使用
+##EasyImageLoader的使用
    
     //根据图片url给imageView加载图片，自动本地缓存、内存缓存
     EasyImageLoader.getInstance(context).bindBitmap(imageUrl, imageView);
