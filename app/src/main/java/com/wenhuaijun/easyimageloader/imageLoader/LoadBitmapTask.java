@@ -36,10 +36,8 @@ public class LoadBitmapTask implements Runnable{
     public void run() {
         //从本地或者网络获取bitmap
         Bitmap bitmap =loadBitmap(uri, reqWidth, reqHeight);
-        if(bitmap!=null){
             TaskResult loaderResult = new TaskResult(imageView,uri,bitmap);
             mMainHandler.obtainMessage(MESSAGE_POST_RESULT,loaderResult).sendToTarget();
-        }
     }
 
     /**
