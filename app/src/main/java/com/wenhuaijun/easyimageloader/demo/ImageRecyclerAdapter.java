@@ -20,13 +20,11 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHold
 
     @Override
     public ImageItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.i("heheda","onCreateViewHolder");
         return new ImageItemViewHolder(parent);
     }
 
     @Override
     public void onBindViewHolder(ImageItemViewHolder holder, int position) {
-        Log.i("heheda", "onBindViewHolder----" + position);
         holder.setLayoutParams(data[position],layoutManagerType);
         //如果RecyclerView设置了滑动监听则使用下列注释代码，优化图片加载性能，解决卡顿
         /*if(getItemCount()!=0){
@@ -36,9 +34,6 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageItemViewHold
                 holder.setData(data[position]);
             }
         }*/
-
-        //RecyclerView未设置滑动监听
-        holder.imageView.setImageResource(R.drawable.ic_loading);
         holder.setData(data[position],layoutManagerType);
     }
 
