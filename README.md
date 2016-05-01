@@ -1,5 +1,37 @@
 # EasyImageLoader
-一款简单的图片加载库，用于学习
-###一款从内存缓存、本地缓存、网路请求加载图片的简单解决方案，解决数据错乱的问题。内含demo
+轻量级图片加载库。具有图片加载，图片缓存、图片压缩功能。
+将内存缓存、本地缓存、网络请求、图片压缩封装，做到模块独立，降低耦合度，只给外层提供ImagLoader的bindBitmap方法加载图片解决数据错乱问题，能够在加载图片时添加loadding图片，加载失败是自动加载error图片
+
+
 ##示例
 ![EasyImageLoaderSample.gif](EasyImageLoaderSample.gif)
+##EasyRecyclerView的使用
+    //实例化imageLoader
+    ImageLoader imageLoader = ImageLoader.build(context);
+    //根据图片url给imageView加载图片，自动本地缓存、内存缓存
+    imageLoader.bindBitmap(imageUrl, imageView);
+    //重载方法加载图片并根据需求宽高压缩图片
+    imageLoader.bindBitmap(imageUrl, imageView,reqWidth,reqHeight);
+    
+    
+
+
+列如:
+
+    public class ImageItemViewHolder extends RecyclerView.ViewHolder{
+        public ImageView imageView;
+        private ImageLoader imageLoader;
+        public ImageItemViewHolder(ViewGroup parent) {
+            super(LayoutInflater.from(parent.getContext()).inflate(R.layout.itemview_image,parent,false));
+            imageView =(ImageView)itemView.findViewById(R.id.itemview_img);
+            imageLoader = ImageLoader.build(parent.getContext());
+        }
+        //绑定数据
+        public void setData(NetImage netImage){
+                //加载图片
+                imageLoader.bindBitmap(netImage.getPic_url_noredirect(), imageView);
+            }
+  }
+
+
+**详细用法请看demo**
