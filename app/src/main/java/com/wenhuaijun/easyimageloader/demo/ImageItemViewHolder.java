@@ -3,13 +3,11 @@ package com.wenhuaijun.easyimageloader.demo;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.wenhuaijun.easyimageloader.R;
-import com.wenhuaijun.easyimageloader.imageLoader.ImageLoader;
+import com.wenhuaijun.easyimageloader.imageLoader.EasyImageLoader;
 import com.wenhuaijun.easyimageloader.imageLoader.JUtils;
 
 
@@ -35,12 +33,12 @@ public class ImageItemViewHolder extends RecyclerView.ViewHolder{
         //垂直线性布局
         if(layoutType ==Constants.LinearLayoutStyle){
             //加载高清图片并按宽高压缩
-            ImageLoader.getInstance(context)
+            EasyImageLoader.getInstance(context)
                     .bindBitmap(netImage.getPic_url_noredirect(), imageView, (int) width, height);
         }//错位式布局模式
         else if(layoutType ==Constants.StagedGridLayoutStyle){
             //加载小图片
-            ImageLoader.getInstance(context).bindBitmap(netImage.getThumbUrl(), imageView, (int) width, height);
+            EasyImageLoader.getInstance(context).bindBitmap(netImage.getThumbUrl(), imageView, (int) width, height);
         }
 
     }
