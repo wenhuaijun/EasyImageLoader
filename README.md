@@ -6,12 +6,11 @@
 ##示例
 ![EasyImageLoaderSample.gif](EasyImageLoaderSample.gif)
 ##EasyRecyclerView的使用
-    //实例化imageLoader
-    ImageLoader imageLoader = ImageLoader.build(context);
+   
     //根据图片url给imageView加载图片，自动本地缓存、内存缓存
-    imageLoader.bindBitmap(imageUrl, imageView);
+    ImageLoader.getInstance(context).bindBitmap(imageUrl, imageView);
     //重载方法加载图片并根据需求宽高压缩图片
-    imageLoader.bindBitmap(imageUrl, imageView,reqWidth,reqHeight);
+    ImageLoader.getInstance(context).bindBitmap(imageUrl, imageView,reqWidth,reqHeight);
     
     
 
@@ -20,16 +19,16 @@
 
     public class ImageItemViewHolder extends RecyclerView.ViewHolder{
         public ImageView imageView;
-        private ImageLoader imageLoader;
+        private Context context;
         public ImageItemViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.itemview_image,parent,false));
             imageView =(ImageView)itemView.findViewById(R.id.itemview_img);
-            imageLoader = ImageLoader.build(parent.getContext());
+            context =parent.getContext();
         }
         //绑定数据
         public void setData(NetImage netImage){
                 //加载图片
-                imageLoader.bindBitmap(netImage.getPic_url_noredirect(), imageView);
+                ImageLoader.getInstance(context).bindBitmap(imageUrl, imageView);
             }
   }
 
