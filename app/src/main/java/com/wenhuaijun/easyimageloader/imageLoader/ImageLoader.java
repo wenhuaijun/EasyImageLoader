@@ -12,8 +12,6 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class ImageLoader {
     private static ImageLoader instance=null;
-    private static final String TAG="TAG";
-   // private static final int TAG_KEY_URI = R.id.image;
     private Context mContext;
     private static ImageLrucache imageLrucache;
     private static ImageDiskLrucache imageDiskLrucache;
@@ -21,28 +19,6 @@ public class ImageLoader {
     private static ThreadPoolExecutor THREAD_POOL_EXECUTOR = null;
     //创建一个更新ImageView的UI的Handler
     private static TaskHandler mMainHandler;
-    /*private Handler mMainHandler = new Handler(Looper.getMainLooper()){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            //给iamgeView加载bitmap
-            TaskResult result =(TaskResult) msg.obj;
-            ImageView imageView =result.imageView;
-            //判断是否数据错乱
-            String uri =(String)imageView.getTag();
-            if (uri.equals(result.uri)){
-                if(result.bitmap!=null){
-                    imageView.setImageBitmap(result.bitmap);
-                }else {
-                    imageView.setImageResource(R.drawable.ic_error);
-                }
-
-            }else{
-                Log.i(TAG,"数据不是最新数据");
-            }
-        }
-
-    };*/
     public static ImageLoader getInstance(Context context){
         if(instance==null){
             synchronized (ImageLoader.class){
@@ -61,10 +37,6 @@ public class ImageLoader {
         imageDiskLrucache = new ImageDiskLrucache(context);
         mMainHandler = new TaskHandler();
     }
-    //这或许是最简单的建造者模式
-    /*public static ImageLoader build(Context context){
-        return new ImageLoader(context);
-    }*/
 
     public void bindBitmap(final String url, final ImageView imageView){
         bindBitmap(url, imageView, 0, 0);
@@ -89,7 +61,7 @@ public class ImageLoader {
 
     }
     //返回内存缓存类
-    public static  ImageLrucache getImageLrucache(){
+    public static ImageLrucache getImageLrucache(){
         if(imageLrucache==null){
             imageLrucache = new ImageLrucache();
         }

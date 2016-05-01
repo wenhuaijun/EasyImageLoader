@@ -18,7 +18,6 @@ import com.wenhuaijun.easyimageloader.imageLoader.JUtils;
  */
 public class ImageItemViewHolder extends RecyclerView.ViewHolder{
     public ImageView imageView;
-   // private ImageLoader imageLoader;
     private float screenWidth;
     private int height;
     private float width;
@@ -28,7 +27,6 @@ public class ImageItemViewHolder extends RecyclerView.ViewHolder{
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.itemview_image,parent,false));
         imageView =(ImageView)itemView.findViewById(R.id.itemview_img);
         context =parent.getContext();
-     //   imageLoader = ImageLoader.build(parent.getContext());
         screenWidth =JUtils.getScreenWidth();
         layoutParams =imageView.getLayoutParams();
     }
