@@ -1,5 +1,6 @@
 package com.wenhuaijun.easyimageloader.demo;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +18,17 @@ import com.wenhuaijun.easyimageloader.imageLoader.JUtils;
  */
 public class ImageItemViewHolder extends RecyclerView.ViewHolder{
     public ImageView imageView;
-    private ImageLoader imageLoader;
+   // private ImageLoader imageLoader;
     private float screenWidth;
     private int height;
     private float width;
     private ViewGroup.LayoutParams layoutParams;
+    private Context context;
     public ImageItemViewHolder(ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.itemview_image,parent,false));
         imageView =(ImageView)itemView.findViewById(R.id.itemview_img);
-        imageLoader = ImageLoader.build(parent.getContext());
+        context =parent.getContext();
+     //   imageLoader = ImageLoader.build(parent.getContext());
         screenWidth =JUtils.getScreenWidth();
         layoutParams =imageView.getLayoutParams();
     }
@@ -34,11 +37,12 @@ public class ImageItemViewHolder extends RecyclerView.ViewHolder{
         //垂直线性布局
         if(layoutType ==Constants.LinearLayoutStyle){
             //加载高清图片并按宽高压缩
-            imageLoader.bindBitmap(netImage.getPic_url_noredirect(), imageView, (int)width, height);
+            ImageLoader.getInstance(context)
+                    .bindBitmap(netImage.getPic_url_noredirect(), imageView, (int) width, height);
         }//错位式布局模式
         else if(layoutType ==Constants.StagedGridLayoutStyle){
             //加载小图片
-            imageLoader.bindBitmap(netImage.getThumbUrl(), imageView, (int)width, height);
+            ImageLoader.getInstance(context).bindBitmap(netImage.getThumbUrl(), imageView, (int) width, height);
         }
 
     }
