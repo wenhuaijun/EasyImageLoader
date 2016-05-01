@@ -8,9 +8,9 @@
 ##EasyRecyclerView的使用
    
     //根据图片url给imageView加载图片，自动本地缓存、内存缓存
-    ImageLoader.getInstance(context).bindBitmap(imageUrl, imageView);
+    EasyImageLoader.getInstance(context).bindBitmap(imageUrl, imageView);
     //重载方法加载图片并根据需求宽高压缩图片
-    ImageLoader.getInstance(context).bindBitmap(imageUrl, imageView,reqWidth,reqHeight);
+    EasyImageLoader.getInstance(context).bindBitmap(imageUrl, imageView,reqWidth,reqHeight);
     
     
 
@@ -28,7 +28,7 @@
         //绑定数据
         public void setData(NetImage netImage){
                 //加载图片
-                ImageLoader.getInstance(context).bindBitmap(imageUrl, imageView);
+                EasyImageLoader.getInstance(context).bindBitmap(imageUrl, imageView);
             }
   }
 
