@@ -51,11 +51,11 @@ public class LoadBitmapTask implements Runnable{
         Bitmap bitmap = null;
         try {
             //从本地缓存中获取bitmap
-            bitmap = ImageLoader.getImageDiskLrucache(mContext).loadBitmapFromDiskCache(uri, reqWidth, reqHeight);
+            bitmap = EasyImageLoader.getImageDiskLrucache(mContext).loadBitmapFromDiskCache(uri, reqWidth, reqHeight);
             if(bitmap!=null){
                 JUtils.Log("从本地缓存中获取到了bitmap");
                 //添加到内存缓存中
-                ImageLoader.getImageLrucache().addBitmapToMemoryCache(MD5Utils.hashKeyFromUrl(uri), bitmap);
+                EasyImageLoader.getImageLrucache().addBitmapToMemoryCache(MD5Utils.hashKeyFromUrl(uri), bitmap);
                 return  bitmap;
             }else{
                 //从网络下载bitmap到本地缓存，并从本地缓存中获取bitmap
@@ -80,9 +80,9 @@ public class LoadBitmapTask implements Runnable{
     //从网络获取bitmap，并放入本地缓存中
     private Bitmap loadBitmapFromHttp(String url,int reqWidth,int reqHeight) throws IOException {
         //通过url从网络获取图片的字节流保存到本地缓存
-        ImageLoader.getImageDiskLrucache(mContext).downloadImageToDiskCache(url);
+        EasyImageLoader.getImageDiskLrucache(mContext).downloadImageToDiskCache(url);
         //从网络保存到本地缓存中后，直接从本地缓存中获取bitmap;
-        return ImageLoader.getImageDiskLrucache(mContext).loadBitmapFromDiskCache(url, reqWidth, reqHeight);
+        return EasyImageLoader.getImageDiskLrucache(mContext).loadBitmapFromDiskCache(url, reqWidth, reqHeight);
     }
 
 

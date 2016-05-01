@@ -10,8 +10,8 @@ import java.util.concurrent.ThreadPoolExecutor;
  * 供外层使用的图片加载类，通过它实现图片加载
  * Created by Wenhuaijun on 2016/4/22 0022.
  */
-public class ImageLoader {
-    private static ImageLoader instance=null;
+public class EasyImageLoader {
+    private static EasyImageLoader instance=null;
     private Context mContext;
     private static ImageLrucache imageLrucache;
     private static ImageDiskLrucache imageDiskLrucache;
@@ -19,18 +19,18 @@ public class ImageLoader {
     private static ThreadPoolExecutor THREAD_POOL_EXECUTOR = null;
     //创建一个更新ImageView的UI的Handler
     private static TaskHandler mMainHandler;
-    public static ImageLoader getInstance(Context context){
+    public static EasyImageLoader getInstance(Context context){
         if(instance==null){
-            synchronized (ImageLoader.class){
+            synchronized (EasyImageLoader.class){
                 if(instance == null){
-                    instance = new ImageLoader(context);
+                    instance = new EasyImageLoader(context);
                 }
             }
         }
         return instance;
     }
     //私有的构造方法，防止在外部实例化该ImageLoader
-    private ImageLoader (Context context){
+    private EasyImageLoader(Context context){
         mContext =context.getApplicationContext();
         THREAD_POOL_EXECUTOR = ImageThreadPoolExecutor.getInstance();
         imageLrucache = new ImageLrucache();

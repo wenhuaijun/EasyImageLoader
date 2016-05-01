@@ -22,7 +22,7 @@ public class ImageThreadPoolExecutor extends  ThreadPoolExecutor{
 
         @Override
         public Thread newThread(Runnable r) {
-            return new Thread(r,"ImageLoader#" + mCount.getAndIncrement());
+            return new Thread(r,"EasyImageLoader#" + mCount.getAndIncrement());
         }
     };
 
