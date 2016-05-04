@@ -1,11 +1,11 @@
 # EasyImageLoader
 轻量级图片加载库。具有图片加载，图片缓存、图片压缩功能。
-将内存缓存、本地缓存、网络请求、图片压缩封装，做到模块独立，降低耦合度，只给外层提供ImagLoader的bindBitmap方法加载图片解决数据错乱问题，能够在加载图片时添加loadding图片，加载失败是自动加载error图片
+将内存缓存、本地缓存、网络请求、图片压缩、线程池封装，做到模块独立，降低耦合度，只给外层提供ImagLoader的bindBitmap方法加载图片解决数据错乱问题，能够在加载图片时添加loadding图片，加载失败是自动加载error图片
 
 
 ##示例
 ![EasyImageLoaderSample.gif](EasyImageLoaderSample.gif)
-##EasyRecyclerView的使用
+##EasyImageLoader的使用
    
     //根据图片url给imageView加载图片，自动本地缓存、内存缓存
     EasyImageLoader.getInstance(context).bindBitmap(imageUrl, imageView);
