@@ -38,7 +38,7 @@
         //绑定数据
         public void setData(NetImage netImage){
                 //加载图片
-                EasyImageLoader.getInstance(context).bindBitmap(imageUrl, imageView);
+                EasyImageLoader.getInstance(context).bindBitmap(netImage.getImageUrl, imageView);
             }
   }
 
