@@ -10,9 +10,9 @@
 ##依赖 
 该库依赖以下常见库
 
-compile 'com.jakewharton:disklrucache:2.0.2' //Google推荐的本地缓存库
+compile 'com.jakewharton:disklrucache:2.0.2'    //Google推荐的本地缓存库
 
-compile 'com.google.code.gson:gson:2.3.1'    //解析json库，用于封装的网络请求库自动解析json
+compile 'com.google.code.gson:gson:2.3.1'       //解析json库，用于封装的网络请求库自动解析json
 
 ##EasyImageLoader的使用
    
