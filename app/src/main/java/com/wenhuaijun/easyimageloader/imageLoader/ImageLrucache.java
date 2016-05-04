@@ -16,11 +16,9 @@ public class ImageLrucache extends LruCache<String,Bitmap>{
 
     public ImageLrucache() {
         super(cacheSize);
-        JUtils.Log("maxMemory: "+maxMemory+" cacheSize: "+cacheSize);
     }
     @Override
     protected int sizeOf(String key, Bitmap value) {
-        JUtils.Log("key: "+key+"  sizeOf: "+value.getRowBytes()*value.getHeight()/1024);
         //return value.getRowBytes()*value.getHeight()/
         return value.getByteCount() / 1024;
     }
@@ -29,7 +27,6 @@ public class ImageLrucache extends LruCache<String,Bitmap>{
     public void addBitmapToMemoryCache(String key,Bitmap bitmap){
 
         if(getBitmapFromMemCache(key)==null){
-            JUtils.Log("getBitmapFromMemCache(key)==null");
             this.put(key, bitmap);
         }
     }
@@ -42,9 +39,6 @@ public class ImageLrucache extends LruCache<String,Bitmap>{
     public Bitmap loadBitmapFromMemCache(String url){
         final String key =MD5Utils.hashKeyFromUrl(url);
         Bitmap bitmap =getBitmapFromMemCache(key);
-        if(bitmap==null){
-            JUtils.Log("内存缓存中没有该bitmap");
-        }
         return bitmap;
     }
 }

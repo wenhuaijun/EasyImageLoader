@@ -25,7 +25,6 @@ public class BitmapUtils {
     public static int calculateInSampleSize(BitmapFactory.Options options,int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
-        JUtils.Log("width: "+width+"  reqWidth"+reqWidth+"  height: "+height+"  reqHeight: "+reqHeight);
         int inSampleSize = 1;
 
         if (height > reqHeight || width > reqWidth) {
@@ -38,7 +37,6 @@ public class BitmapUtils {
                 inSampleSize*=2;
             }
         }
-        JUtils.Log("inSampleSize: "+inSampleSize);
         return inSampleSize;
     }
 
@@ -66,7 +64,6 @@ public class BitmapUtils {
     }
     /**
      * 根据输入流获取图片并压缩，返回bitmap用于显示
-     * @param inputStream 输入流
      * @param reqWidth 需求宽度
      * @param reqHeight 需求高度
      * @return bitmap

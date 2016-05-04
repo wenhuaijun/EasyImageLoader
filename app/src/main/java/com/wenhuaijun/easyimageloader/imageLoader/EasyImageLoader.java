@@ -62,13 +62,12 @@ public class EasyImageLoader {
 
     /**
      *
-     * @param context
      * @param url 图片链接
      * @param callback bitmap回调接口
      * @param reqWidth 需求宽度
      * @param reqHeight 需求高度
      */
-    public void getBitmap(Context context,final String url,BitmapCallback callback,int reqWidth,int reqHeight){
+    public void getBitmap(final String url,BitmapCallback callback,int reqWidth,int reqHeight){
         //从内存缓存中获取bitmap
         Bitmap bitmap = imageLrucache.loadBitmapFromMemCache(url);
         if(bitmap!=null){
@@ -79,8 +78,8 @@ public class EasyImageLoader {
         THREAD_POOL_EXECUTOR.execute(loadBitmapTask);
 
     }
-    public void getBitmap(Context context,final String url,BitmapCallback callback){
-       getBitmap(context,url,callback,0,0);
+    public void getBitmap(final String url,BitmapCallback callback){
+       getBitmap(url,callback,0,0);
 
     }
 

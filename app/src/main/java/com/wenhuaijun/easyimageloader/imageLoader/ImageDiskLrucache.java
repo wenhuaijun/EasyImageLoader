@@ -90,10 +90,8 @@ public class ImageDiskLrucache {
             //将从网络下载并写入输出流中
             if(NetRequest.downloadUrlToStream(urlString,outputStream)){
                 //提交数据，并是释放连接
-                JUtils.Log("从网络下载图片到本地缓存中成功");
                 editor.commit();
             }else{
-                JUtils.Log("从网络下载图片到本地缓存中失败");
                 //释放连接
                 editor.abort();
             }
