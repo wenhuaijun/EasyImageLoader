@@ -2,6 +2,8 @@ package com.wenhuaijun.easyimageloader.imageLoader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.ImageView;
 import com.wenhuaijun.easyimageloader.R;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -67,11 +69,18 @@ public class EasyImageLoader {
      * @param reqWidth 需求宽度
      * @param reqHeight 需求高度
      */
-    public void getBitmap(final String url,BitmapCallback callback,int reqWidth,int reqHeight){
+    public void getBitmap(final String url, final BitmapCallback callback,int reqWidth,int reqHeight){
         //从内存缓存中获取bitmap
-        Bitmap bitmap = imageLrucache.loadBitmapFromMemCache(url);
+        final Bitmap bitmap = imageLrucache.loadBitmapFromMemCache(url);
         if(bitmap!=null){
-            callback.onResponse(bitmap);
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onResponse(bitmap);
+                }
+            });
+
         }
         LoadBitmapTask loadBitmapTask =new LoadBitmapTask(mContext,callback,url,reqWidth,reqHeight);
         //使用线程池去执行Runnable对象

@@ -3,6 +3,7 @@ package com.wenhuaijun.easyimageloader.imageLoader;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -45,13 +46,20 @@ public class LoadBitmapTask implements Runnable{
     @Override
     public void run() {
         //从本地或者网络获取bitmap
-        Bitmap bitmap =loadBitmap(uri, reqWidth, reqHeight);
+        final Bitmap bitmap =loadBitmap(uri, reqWidth, reqHeight);
         if(mMainHandler!=null){
             TaskResult loaderResult = new TaskResult(imageView,uri,bitmap);
             mMainHandler.obtainMessage(MESSAGE_POST_RESULT,loaderResult).sendToTarget();
         }
         if(callback !=null){
-            callback.onResponse(bitmap);
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onResponse(bitmap);
+                }
+            });
+
         }
 
     }
