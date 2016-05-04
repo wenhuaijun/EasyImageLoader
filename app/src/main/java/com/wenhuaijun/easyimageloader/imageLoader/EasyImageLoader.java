@@ -51,7 +51,6 @@ public class EasyImageLoader {
         //从内存缓存中获取bitmap
         Bitmap bitmap = imageLrucache.loadBitmapFromMemCache(uri);
         if(bitmap!=null){
-            JUtils.Log("从内存中获取到了bitmap_1");
             imageView.setImageBitmap(bitmap);
             return;
         }
@@ -60,6 +59,31 @@ public class EasyImageLoader {
         THREAD_POOL_EXECUTOR.execute(loadBitmapTask);
 
     }
+
+    /**
+     *
+     * @param context
+     * @param url 图片链接
+     * @param callback bitmap回调接口
+     * @param reqWidth 需求宽度
+     * @param reqHeight 需求高度
+     */
+    public void getBitmap(Context context,final String url,BitmapCallback callback,int reqWidth,int reqHeight){
+        //从内存缓存中获取bitmap
+        Bitmap bitmap = imageLrucache.loadBitmapFromMemCache(url);
+        if(bitmap!=null){
+            callback.onResponse(bitmap);
+        }
+        LoadBitmapTask loadBitmapTask =new LoadBitmapTask(mContext,callback,url,reqWidth,reqHeight);
+        //使用线程池去执行Runnable对象
+        THREAD_POOL_EXECUTOR.execute(loadBitmapTask);
+
+    }
+    public void getBitmap(Context context,final String url,BitmapCallback callback){
+       getBitmap(context,url,callback,0,0);
+
+    }
+
     //返回内存缓存类
     public static ImageLrucache getImageLrucache(){
         if(imageLrucache==null){
@@ -73,5 +97,8 @@ public class EasyImageLoader {
             imageDiskLrucache = new ImageDiskLrucache(context);
         }
         return imageDiskLrucache;
+    }
+    public interface BitmapCallback{
+       public void onResponse(Bitmap bitmap);
     }
 }

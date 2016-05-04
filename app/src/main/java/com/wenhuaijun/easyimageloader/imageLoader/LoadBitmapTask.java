@@ -22,7 +22,9 @@ public class LoadBitmapTask implements Runnable{
     private int reqHeight;
     private Handler mMainHandler;
     private ImageView imageView;
+    private EasyImageLoader.BitmapCallback callback;
 
+    //用于Handler处理的构造函数
     public LoadBitmapTask(Context context,Handler handler,ImageView imageview,String uri,int reqWidth,int reqHeight) {
         this.mMainHandler =handler;
         this.uri=uri;
@@ -31,13 +33,27 @@ public class LoadBitmapTask implements Runnable{
         this.imageView =imageview;
         mContext =context.getApplicationContext();
     }
+    //用于回调bitmap的重载构造函数
+    public LoadBitmapTask(Context context,EasyImageLoader.BitmapCallback callback,String uri,int reqWidth,int reqHeight) {
+        this.callback =callback;
+        this.uri=uri;
+        this.reqHeight =reqHeight;
+        this.reqWidth =reqWidth;
+        mContext =context.getApplicationContext();
+    }
 
     @Override
     public void run() {
         //从本地或者网络获取bitmap
         Bitmap bitmap =loadBitmap(uri, reqWidth, reqHeight);
+        if(mMainHandler!=null){
             TaskResult loaderResult = new TaskResult(imageView,uri,bitmap);
             mMainHandler.obtainMessage(MESSAGE_POST_RESULT,loaderResult).sendToTarget();
+        }
+        if(callback !=null){
+            callback.onResponse(bitmap);
+        }
+
     }
 
     /**
