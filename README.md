@@ -3,8 +3,17 @@
 将内存缓存、本地缓存、网络请求、图片压缩、线程池封装，做到模块独立，降低耦合度，只给外层提供ImagLoader的bindBitmap方法加载图片解决数据错乱问题，能够在加载图片时添加loadding图片，加载失败时自动加载error图片
 
 
+
 ##示例
 ![EasyImageLoaderSample.gif](EasyImageLoaderSample.gif)
+
+##依赖 
+该库依赖以下常见库
+
+compile 'com.jakewharton:disklrucache:2.0.2'    //Google推荐的本地缓存库
+
+compile 'com.google.code.gson:gson:2.3.1'       //解析json库，用于封装的网络请求库自动解析json
+
 ##EasyImageLoader的使用
    
     //根据图片url给imageView加载图片，自动本地缓存、内存缓存
