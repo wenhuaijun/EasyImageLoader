@@ -80,7 +80,7 @@ public class EasyImageLoader {
                     callback.onResponse(bitmap);
                 }
             });
-
+            return;
         }
         LoadBitmapTask loadBitmapTask =new LoadBitmapTask(mContext,callback,url,reqWidth,reqHeight);
         //使用线程池去执行Runnable对象
