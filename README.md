@@ -42,7 +42,7 @@ compile 'com.google.code.gson:gson:2.3.1'       //解析json库，用于封装�
         public ImageItemViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.itemview_image,parent,false));
             imageView =(ImageView)itemView.findViewById(R.id.itemview_img);
-            context =parent.getContext();
+            context =parent.getContext().getApplicationContext();
         }
         //绑定数据
         public void setData(NetImage netImage){
