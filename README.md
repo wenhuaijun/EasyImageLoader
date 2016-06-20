@@ -16,7 +16,7 @@ compile 'com.google.code.gson:gson:2.3.1'       //解析json库，用于封装�
 
 ##EasyImageLoader的使用
    
-    //根据图片url给imageView加载图片，自动本地缓存、内存缓存
+    //根据图片url给imageView加载图片，自动本地缓存、内存缓存，注意Context需使用ApplicationContext，否则会导致内存泄露，下同
     EasyImageLoader.getInstance(context).bindBitmap(imageUrl, imageView);
     
     //重载方法加载图片并根据需求宽高压缩图片
